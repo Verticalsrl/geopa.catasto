@@ -1,0 +1,7 @@
+Ricreata la struttura catasto con le tabelle vuote e le tabelle di decode con i dati per Postgres versione 94 - PostGIS 2.
+
+Prima carichi le tabelle decode, poi la struttura delle altre tabelle, vuote. Quindi in ordine ad esempio:
+
+psql -p 5432 -d geo_drupal -U postgres -f dati_tabelle_catasto-decode.sql
+
+psql -p 5432 -d geo_drupal -U postgres -f struttura_tabelle_catasto.sql

@@ -1,0 +1,14 @@
+Col nuovo PostGis l'upload delle tabelle del catasto e dunque dei file .CXF avveniva correttamemnte solo se caricate in modalita "25D", cioè 3D.
+Se questo cambio nel codice python non aveva avuto riflessi col vecchio PostGIS, col nuovo le tabelle devono essere definite in 3D altrimenti il caricamento riporta il seguente errore:
+
+Error ERRORE:  Geometry has Z dimension but column does not
+
+
+Per trasformare le tabelle da 2D a 3D:
+
+ALTER TABLE catasto.catasto_bordi ALTER COLUMN wkb_geometry TYPE geometry(PolygonZ) USING ST_Force_3D(wkb_geometry);
+
+ALTER TABLE catasto.catasto_linee ALTER COLUMN wkb_geometry TYPE geometry(LineStringZ) USING ST_Force_3D(wkb_geometry);
+
+
+A quanto pare per le tabelle di tipo POINT questa conversione non si è rivelata essere necessaria.
