@@ -78,6 +78,12 @@ def write_foglio(foglio, destination, point_borders=False, format_name='ESRI Sha
     if foglio['CODICE COMUNE'] == 'G087':
         cassini_soldener = '+proj=cass +lat_0=45.007336 +lon_0=7.53725 +x_0=%f +y_0=%f +ellps=intl +units=m +no_defs'
         t_srs='4326'
+    elif foglio['CODICE COMUNE'] == 'B305':
+        cassini_soldener = '+proj=cass +lat_0=45.067618 +lon_0=7.436827 +x_0=0 +y_0=0 +ellps=intl +units=m +no_defs'
+        t_srs='4326'
+    elif foglio['CODICE COMUNE'] == 'I785':
+        cassini_soldener = '+proj=cass +lat_0=37.267029 +lon_0=14.692473 +x_0=0 +y_0=0 +ellps=intl +units=m +no_defs'
+        t_srs='4326'
     elif foglio['CODICE COMUNE'] == 'G535':
         #cassini_soldener = '+proj=cass +lat_0=%f +lon_0=%f +x_0=572650 +y_0=4956597 +ellps=intl +units=m +no_defs'
         #A quanto pare non gli piace se specifico x_0-y_0. Proviamo a specificare l'offset in lat/lon:
@@ -95,6 +101,9 @@ def write_foglio(foglio, destination, point_borders=False, format_name='ESRI Sha
         t_srs='4326'
     elif foglio['CODICE COMUNE'] == 'C261':
         cassini_soldener = '+proj=cass +lat_0=45.31413 +lon_0=9.502994 +x_0=1 +y_0=1 +ellps=intl +units=m +no_defs'
+        t_srs='4326'
+    elif foglio['CODICE COMUNE'] == 'C722':
+        cassini_soldener = '+proj=cass +lat_0=45.235812 +lon_0=7.602194 +x_0=0 +y_0=0 +ellps=intl +units=m +no_defs'
         t_srs='4326'
     elif foglio['CODICE COMUNE'] == 'A484':
         cassini_soldener = '+proj=cass +lat_0=40.535328 +lon_0=15.324016 +x_0=0 +y_0=0 +ellps=intl +units=m +no_defs'
@@ -151,7 +160,7 @@ def write_foglio(foglio, destination, point_borders=False, format_name='ESRI Sha
 
     shift_cassini, shift_gauss_boaga = shifts
     ##### Parte eventualmente da MODIFICARE:
-    if foglio['CODICE COMUNE'] in ['G535', 'I258','L380','G476','C261','A484','B266','B868','F618','F625','G226','G793','I307','I410','I451','D292','I143','I089','H683']:
+    if foglio['CODICE COMUNE'] in ['G535', 'I258','L380','G476','C261','A484','B266','B868','F618','F625','G226','G793','I307','I410','I451','D292','I143','I089','H683','C722','B305','I785']:
         local_cassini_soldener = cassini_soldener
     else:
         local_cassini_soldener = cassini_soldener % (-shift_cassini[0], -shift_cassini[1])

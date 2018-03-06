@@ -36,7 +36,7 @@ def parse_censuario(basepath):
     print basename
 
     # check basename #modifico la condizione lunghezza ponendola anche a 10, nella forma: 'G087618390'
-    assert len(basename) == 7 or len(basename) == 8 or len(basename) == 10 or len(basename) == 12, basename
+    assert len(basename) == 7 or len(basename) == 8 or len(basename) == 10 or len(basename) == 11 or len(basename) == 12 or len(basename) == 13 or len(basename) == 14, basename
 
     censuario['CODICE_COMUNE'] = basename[:4]
     if len(basename) == 8:
@@ -95,6 +95,7 @@ def parse_censuario(basepath):
             oggetto['tipo_nota99'], oggetto['numero_nota99'], oggetto['progressivo_nota99'], oggetto['anno_nota99'] = fields[30:34]
             oggetto['numero_nota99'] = oggetto['numero_nota99'].lstrip('0')
             oggetto['partita'], oggetto['annotazione'], oggetto['identificativo_mutazione_iniziale'], oggetto['identificativo_mutazione_finale'], oggetto['protocollo_notifica'] = fields[34:39]
+            oggetto['annotazione'] = remove_accents(oggetto['annotazione'])
             to_date('data_notifica', fields[39])
             #Dati aggiunti dal 2007:
             if len(fields) > 40:

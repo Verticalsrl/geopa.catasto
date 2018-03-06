@@ -17,7 +17,7 @@ def main_cxf(args=argv[1:]):
     (keys, args) = parser.parse_args(args=args)
     assert len(args) == 1
 
-    if args[0].endswith('.CXF'):
+    if args[0].upper().endswith('.CXF'):
         args[0] = args[0][:-4]
 
     foglio = parse_foglio(args[0])
