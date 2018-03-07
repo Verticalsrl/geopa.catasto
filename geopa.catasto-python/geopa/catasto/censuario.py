@@ -104,7 +104,16 @@ def parse_censuario(basepath):
                 # Dati relativi all'atto che ha concluso la situazione oggettiva dell'unita':
                 oggetto['codice_causale_atto_conclusivo'], oggetto['descrizione_atto_conclusivo'] = fields[42:44]
                 oggetto['flag_classamento'] = fields[44]
-                record_len = 40
+                try:
+                    esiste_questo_campo = fields[45]
+                except:
+                    record_len = 45
+                else:
+                    record_len = 46
+                    if fields[45] is None or fields[45]=='':
+                        print "***** WARNING: Trovato un campo in piu non mappato, comunque in questo caso NON e' VALORIZZATO quindi il warning e' trascurabile *****"
+                    else:
+                        print "***** WARNING: Trovato un campo in piu VALORIZZATO ma NON MAPPATO! Verificare non sia importante *****"
             #fields = fields[6:] #togli questo controllo sulla lunghezza del record
             censuario['FABBRICATI'][id_immobile] = {}
             censuario['FABBRICATI'][id_immobile].update(oggetto)
