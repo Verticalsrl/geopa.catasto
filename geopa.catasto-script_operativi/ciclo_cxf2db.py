@@ -36,7 +36,7 @@ def main(cxf_path, format_dst, db_path, dirLog):
     start_date = start_time.strftime("%Y%m%d")
     dirList=os.listdir(cxf_path)
     
-    b = [item for item in range(len(dirList)) if (dirList[item].endswith(extension))]
+    b = [item for item in range(len(dirList)) if (dirList[item].upper().endswith(extension))]
     
     table = [ 0 for i in range(len(b)) ]
     
