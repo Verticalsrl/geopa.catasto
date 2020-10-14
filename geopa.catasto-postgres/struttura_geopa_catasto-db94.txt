@@ -1,5 +1,15 @@
 Ricreata la struttura catasto con le tabelle vuote e le tabelle di decode con i dati per Postgres versione 94 - PostGIS 2.
 
+Bisogna innanzitutto creare gli schemi e gli utenti:
+
+CREATE SCHEMA appoggio AUTHORIZATION postgres;
+CREATE SCHEMA catasto AUTHORIZATION postgres;
+CREATE SCHEMA geopa AUTHORIZATION postgres;
+
+CREATE ROLE geopacatasto WITH SUPERUSER LOGIN PASSWORD 'geopacatasto';
+CREATE ROLE maphosting WITH LOGIN PASSWORD 'map';
+
+
 Prima carichi le tabelle decode, poi la struttura delle altre tabelle, vuote. Quindi in ordine ad esempio:
 
 psql -p 5432 -d geo_drupal -U postgres -f dati_tabelle_catasto-decode.sql
