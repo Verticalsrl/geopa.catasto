@@ -54,7 +54,7 @@ def parse_foglio(basepath):
     foglio['NUMERO FOGLIO'] = foglio['CODICE NUMERO FOGLIO'].lstrip('0')
 
     foglio['CODICE ALLEGATO'] = basename[9]
-    assert foglio['CODICE ALLEGATO'] in ['0', 'Q', 'A'] # missing
+    assert foglio['CODICE ALLEGATO'] in ['0', 'Q', 'A', 'B', 'D'] # missing
 
     foglio['CODICE SVILUPPO'] = basename[10]
     assert foglio['CODICE SVILUPPO'] in ['A', 'B', 'C', 'D', '0', 'U']
