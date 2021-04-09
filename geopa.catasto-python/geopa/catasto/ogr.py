@@ -78,6 +78,15 @@ def write_foglio(foglio, destination, point_borders=False, format_name='ESRI Sha
     if foglio['CODICE COMUNE'] == 'G087':
         cassini_soldener = '+proj=cass +lat_0=45.007336 +lon_0=7.53725 +x_0=%f +y_0=%f +ellps=intl +units=m +no_defs'
         t_srs='4326'
+    elif foglio['CODICE COMUNE'] == 'C665':
+        cassini_soldener = '+proj=cass +lat_0=45.19033 +lon_0=7.889418 +x_0=-0.35 +y_0=-0.90 +ellps=intl +units=m +no_defs'
+        t_srs='4326'
+    elif foglio['CODICE COMUNE'] == 'C370':
+        cassini_soldener = '+proj=cass +lat_0=45.558239 +lon_0=10.76357 +x_0=+0.45 +y_0=-1.90 +ellps=intl +units=m +no_defs'
+        t_srs='4326'
+    elif foglio['CODICE COMUNE'] == 'H264':
+        cassini_soldener = '+proj=tmerc +lat_0=0 +lon_0=9 +k=0.9996 +x_0=1500000 +y_0=0 +ellps=intl +towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68 +units=m +no_defs'
+        t_srs='4326'
     elif foglio['CODICE COMUNE'] == 'B305':
         cassini_soldener = '+proj=cass +lat_0=45.067618 +lon_0=7.436827 +x_0=0 +y_0=0 +ellps=intl +units=m +no_defs'
         t_srs='4326'
@@ -160,7 +169,7 @@ def write_foglio(foglio, destination, point_borders=False, format_name='ESRI Sha
 
     shift_cassini, shift_gauss_boaga = shifts
     ##### Parte eventualmente da MODIFICARE:
-    if foglio['CODICE COMUNE'] in ['G535', 'I258','L380','G476','C261','A484','B266','B868','F618','F625','G226','G793','I307','I410','I451','D292','I143','I089','H683','C722','B305','I785']:
+    if foglio['CODICE COMUNE'] in ['G535', 'I258','L380','G476','C261','A484','B266','B868','F618','F625','G226','G793','I307','I410','I451','D292','I143','I089','H683','C722','B305','I785','C665','C370','H264']:
         local_cassini_soldener = cassini_soldener
     else:
         local_cassini_soldener = cassini_soldener % (-shift_cassini[0], -shift_cassini[1])
@@ -210,7 +219,9 @@ def write_foglio(foglio, destination, point_borders=False, format_name='ESRI Sha
         ds = GetDriverByName(format_name).Open(destination, update=1)
     else:
         ds = GetDriverByName(format_name).CreateDataSource(destination, options=create_options)
-    pedice = "%s_%s_%s" % (foglio['CODICE COMUNE'], foglio['NUMERO FOGLIO'], foglio['CODICE SVILUPPO'])
+    #pedice = "%s_%s_%s" % (foglio['CODICE COMUNE'], foglio['NUMERO FOGLIO'], foglio['CODICE SVILUPPO'])
+    #per evitare sovrascritture aggiungo anche l'allegato
+    pedice = "%s_%s_%s_%s" % (foglio['CODICE COMUNE'], foglio['NUMERO FOGLIO'], foglio['CODICE ALLEGATO'], foglio['CODICE SVILUPPO'])
     
     # tipo BORDO
     #bordi = ds.CreateLayer('CATASTO_BORDI', target_srs, wkbPolygon)
