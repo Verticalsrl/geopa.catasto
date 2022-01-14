@@ -101,6 +101,7 @@ def parse_censuario(basepath):
             if len(fields) > 40:
                 # Dati relativi all'atto che ha generato la situazione oggettiva dell'unita':
                 oggetto['codice_causale_atto_generante'], oggetto['descrizione_atto_generante'] = fields[40:42]
+                oggetto['descrizione_atto_generante'] = remove_accents(oggetto['descrizione_atto_generante']).replace(u'\xb0', u'.') #soluzione poco elegante per risolvere il problema del simbolo \xb0 cioe' il "grado" -- 14-01-2022
                 # Dati relativi all'atto che ha concluso la situazione oggettiva dell'unita':
                 oggetto['codice_causale_atto_conclusivo'], oggetto['descrizione_atto_conclusivo'] = fields[42:44]
                 oggetto['flag_classamento'] = fields[44]
@@ -286,6 +287,7 @@ def parse_censuario(basepath):
                 record_len = 44
                 # Dati relativi all'atto che ha generato la situazione oggettiva dell'unita':
                 oggetto['codice_causale_atto_generante'], oggetto['descrizione_atto_generante'] = fields[39:41]
+                oggetto['descrizione_atto_generante'] = remove_accents(oggetto['descrizione_atto_generante']).replace(u'\xb0', u'.') #soluzione poco elegante per risolvere il problema del simbolo \xb0 cioe' il "grado" -- 14-01-2022
                 # Dati relativi all'atto che ha concluso la situazione oggettiva dell'unita':
                 oggetto['codice_causale_atto_conclusivo'], oggetto['descrizione_atto_conclusivo'] = fields[41:43]
             #fields = fields[6:] #togli questo controllo sulla lunghezza del record
@@ -409,6 +411,8 @@ def parse_censuario(basepath):
         oggetto['codice_diritto'] = fields[6]
         oggetto['titolo_non_codificato'] = remove_accents(fields[7])
         oggetto['quota_numeratore'], oggetto['quota_denominatore'], oggetto['regime'], oggetto['soggetto_di_riferimento'] = fields[8:12]
+        oggetto['regime'] = remove_accents(oggetto['regime'])
+        oggetto['soggetto_di_riferimento'] = remove_accents(oggetto['soggetto_di_riferimento'])
         # Dati relativi all'atto che ha generato la titolarita':
         to_date('data_di_validita00', fields[12])
         oggetto['tipo_nota00'], oggetto['numero_nota00'], oggetto['progressivo_nota00'], oggetto['anno_nota00'] = fields[13:17]
@@ -427,7 +431,7 @@ def parse_censuario(basepath):
         if len(fields) > 29:
             # Campi introdotti dal 2007:
             oggetto['codice_causale_atto_generante'], oggetto['descrizione_atto_generante'], oggetto['codice_causale_atto_conclusivo'], oggetto['descrizione_atto_conclusivo'] = fields[28:32]
-        
+            oggetto['descrizione_atto_generante'] = remove_accents(oggetto['descrizione_atto_generante']).replace(u'\xb0', u'.') #soluzione poco elegante per risolvere il problema del simbolo \xb0 cioe' il "grado" -- 14-01-2022
         #id_tit = tuple(fields[2:6])
         #censuario['TITOLARITA'].append(id_tit)
         id_titolarita = "%s_%s" % (fields[2], i)
