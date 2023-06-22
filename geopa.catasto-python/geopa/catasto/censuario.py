@@ -115,6 +115,17 @@ def parse_censuario(basepath):
                         print "***** WARNING: Trovato un campo in piu non mappato, comunque in questo caso NON e' VALORIZZATO quindi il warning e' trascurabile *****"
                     else:
                         print "***** WARNING: Trovato un campo in piu VALORIZZATO ma NON MAPPATO! Verificare non sia importante *****"
+                # 2023-06-21: i dati potrebbero arrivare ad avere 47 colonne
+                try:
+                    esiste_questo_campo = fields[46]
+                except:
+                    record_len = record_len #lascio la lunghezza trovata prima
+                else:
+                    record_len = 47
+                    if fields[46] is None or fields[46]=='':
+                        print "***** WARNING: Trovato un campo in piu non mappato, comunque in questo caso NON e' VALORIZZATO quindi il warning e' trascurabile *****"
+                    else:
+                        print "***** WARNING: Trovato un campo in piu VALORIZZATO ma NON MAPPATO! Verificare non sia importante *****"
             #fields = fields[6:] #togli questo controllo sulla lunghezza del record
             censuario['FABBRICATI'][id_immobile] = {}
             censuario['FABBRICATI'][id_immobile].update(oggetto)
